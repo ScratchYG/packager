@@ -226,11 +226,12 @@
 {/if}
 
 <DropArea on:drop={handleDrop}>
-  <Section accent="#4C97FF">
+  <Section accent="#4f1bbe">
     <h2>{$_('select.select')}</h2>
     <p>{$_('select.selectHelp')}</p>
+    <input hidden={$type !== "file"} on:change={handleFileInputChange} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
 
-    <div class="options">
+    <div style="display: none" class="options">
       <div class="option">
         <label>
           <input type="radio" name="project-type" bind:group={$type} value="id">
@@ -246,7 +247,6 @@
           <input type="radio" name="project-type" bind:group={$type} value="file">
           {$_('select.file')}
         </label>
-        <input hidden={$type !== "file"} on:change={handleFileInputChange} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
       </div>
       <div class="option">
         <label>
@@ -280,7 +280,7 @@
       </p>
     {/if}
 
-    <Button on:click={load} text={$_('select.loadProject')} />
+    <Button on:click={load} hidden=true text={$_('select.loadProject')} />
   </Section>
 </DropArea>
 

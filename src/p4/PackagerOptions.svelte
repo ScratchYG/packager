@@ -326,7 +326,7 @@
 </style>
 
 <Section
-  accent="#FFAB19"
+  accent="#4f1bbe"
   reset={() => {
     resetOptions([
       'turbo',
@@ -413,7 +413,7 @@
         {$_('options.customUsernameWarning')}
       </p>
     {/if}
-    <label class="option">
+    <label class="option" style="display:none">
       <input type="checkbox" bind:checked={$options.closeWhenStopped}>
       {$_('options.closeWhenStopped')}
     </label>
@@ -445,7 +445,7 @@
 </Section>
 
 <Section
-  accent="#9966FF"
+  accent="#4f1bbe"
   reset={() => {
     $icon = null;
     $loadingScreenImage = null;
@@ -496,33 +496,33 @@
       </label>
     {/if}
 
-    <h3>{$_('options.controls')}</h3>
-    <div class="group">
+    <h3 style="display:none">{$_('options.controls')}</h3>
+    <div class="group" style="display:none">
       <label class="option">
-        <input type="checkbox" bind:checked={$options.autoplay}>
+        <input type="checkbox" bind:checked={$options.autoplay} >
         {$_('options.autoplay')}
       </label>
       {#if $options.autoplay}
         {$_('options.autoplayHint')}
       {/if}
     </div>
-    <label class="option">
+    <label class="option" style="display:none">
       <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
       {$_('options.showFlag')}
     </label>
-    <label class="option">
+    <label class="option" style="display:none">
       <input type="checkbox" bind:checked={$options.controls.stopAll.enabled}>
       {$_('options.showStop')}
     </label>
-    <label class="option">
+    <label class="option" style="display:none">
       <input type="checkbox" bind:checked={$options.controls.pause.enabled}>
       {$_('options.showPause')}
     </label>
-    <label class="option">
+    <label class="option" style="display:none">
       <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
       {$_('options.showFullscreen')}
     </label>
-    <p>{$_('options.controlsHelp')}</p>
+    <p style="display:none">{$_('options.controlsHelp')}</p>
 
     <h3>{$_('options.colors')}</h3>
     <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -560,7 +560,7 @@
 </Section>
 
 <Section
-  accent="#4CBFE6"
+  accent="#4f1bbe"
   reset={() => {
     $customCursorIcon = null;
     resetOptions([
@@ -633,6 +633,7 @@
       'cloudVariables'
     ]);
   }}
+  hidden=true
 >
   <div>
     <h2>{$_('options.cloudVariables')}</h2>
@@ -717,6 +718,7 @@
       'maxTextureDimension'
     ]);
   }}
+  hidden=true
 >
   <div>
     <h2>{$_('options.advancedOptions')}</h2>
@@ -790,6 +792,7 @@
       'target'
     ])
   }}
+  hidden=true
 >
   <div>
     <h2>{$_('options.environment')}</h2>
@@ -877,7 +880,7 @@
 {#if $options.target !== 'html'}
   <div in:fade|local>
     <Section
-      accent="#FF661A"
+      accent="#4f1bbe"
       reset={$options.target.startsWith('zip') ? null : () => {
         resetOptions([
           'app.packageName',
@@ -885,6 +888,7 @@
           'app.escapeBehavior'
         ]);
       }}
+      hidden=true
     >
       <div>
         {#if $options.target.startsWith('zip')}

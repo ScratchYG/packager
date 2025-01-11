@@ -236,7 +236,7 @@
       {/if}
     </div>
     <div>
-      <a href="https://docs.turbowarp.org/packager">{$_('p4.documentation')}</a>
+      <a href="https://scratchyg.github.io/docs">{$_('p4.documentation')}</a>
     </div>
     <div>
       <SelectTheme />

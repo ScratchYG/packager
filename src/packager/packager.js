@@ -1231,8 +1231,6 @@ cd "$(dirname "$0")"
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- We only include this to explicitly loosen the CSP of various packager environments. It does not provide any security. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
   <title>${escapeXML(this.options.app.windowTitle)}</title>
   <style>
     body {
@@ -1749,7 +1747,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   stageWidth: 480,
   stageHeight: 360,
   resizeMode: 'preserve-ratio',
-  autoplay: false,
+  autoplay: true,
   username: 'player####',
   closeWhenStopped: false,
   projectId: '',
@@ -1792,7 +1790,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     warpTimer: false
   },
   packagedRuntime: true,
-  target: 'html',
+  target: 'zip',
   app: {
     icon: null,
     packageName: Packager.getDefaultPackageNameFromFileName(''),
@@ -1807,7 +1805,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     pointerlock: false,
   },
   cloudVariables: {
-    mode: 'ws',
+    mode: '',
     cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {},
     specialCloudBehaviors: false,

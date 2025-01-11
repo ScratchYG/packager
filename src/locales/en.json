@@ -1,19 +1,19 @@
 {
   "p4": {
     "description1": {
-      "string": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux."
+      "string": "Packages TurboWarp projects with ScratchYG extension into zip archives for Yandex.Games."
     },
     "description2": {
-      "string": "If you just want an easy way to embed a project into your website, you may be interested in {embedding}."
+      "string": ""
     },
     "description2-embedding": {
-      "string": "Embedding"
+      "string": ""
     },
     "description3": {
       "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."
     },
     "disclaimer": {
-      "string": "This site is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation."
+      "string": "This site is not affiliated with Yandex, Scratch, Turbowarp, the Scratch Team, or the Scratch Foundation."
     },
     "description3-on": {
       "string": "on {brand}",
@@ -119,7 +119,7 @@
       "string": "Select Project"
     },
     "selectHelp": {
-      "string": "Select the project you want to package by copying and pasting the Scratch project link or using one of the other modes. If you use a project you didn't make, make sure to credit the creator."
+      "string": "Select the project you want to package."
     },
     "id": {
       "string": "Scratch Project ID or URL",

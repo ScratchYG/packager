@@ -30,23 +30,23 @@ If this is set to an empty string, the link is removed.
 */
 
 module.exports = {
-  APP_NAME: 'TurboWarp Packager',
-  WEBSITE: 'https://packager.turbowarp.org/',
+  APP_NAME: 'ScratchYG Packager',
+  WEBSITE: 'https://scratchyg.github.io/packager/',
   COPYRIGHT_NOTICE: `Copyright (C) 2021-2024 Thomas Weber
 
 The Source Code Form of this program is available under the terms of the
 Mozilla Public License, v. 2.0. You can obtain a copy of the license at
 https://www.mozilla.org/en-US/MPL/2.0/.`,
-  ACCENT_COLOR: '#ff4c4c',
-  SOURCE_CODE: 'https://github.com/TurboWarp/packager',
+  ACCENT_COLOR: '#4f1bbe',
+  SOURCE_CODE: 'https://github.com/ScratchYG/packager',
   FEEDBACK_PRIMARY: {
-    name: 'Scratch',
-    link: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+    name: 'Telegram',
+    link: 'https://t.me/scratchyg'
   },
   FEEDBACK_SECONDARY: {
     name: 'GitHub',
-    link: 'https://github.com/TurboWarp/packager/issues'
+    link: 'https://github.com/ScratchYG/sdk/issues'
   },
-  DONATE: 'https://github.com/sponsors/GarboMuffin',
-  PRIVACY_POLICY: 'https://turbowarp.org/privacy.html',
+  DONATE: '',
+  PRIVACY_POLICY: '',
 };

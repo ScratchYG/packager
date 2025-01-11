@@ -4,6 +4,7 @@
   export let caption = false;
   export let center = false;
   export let modal = false;
+  export let hidden = false;
   export let accent = '';
   export let reset;
 </script>
@@ -48,6 +49,7 @@
   class:modal
   class:center={caption || center}
   style:border-top={accent ? `6px solid ${accent}` : ''}
+  style:display={hidden ? 'none' : 'block'}
 >
   {#if reset}
     <div class="reset">

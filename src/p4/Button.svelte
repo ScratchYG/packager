@@ -3,6 +3,7 @@
   export let secondary;
   export let dangerous;
   export let text;
+  export let hidden = false;
 
   const getColor = () => {
     if (secondary) return '#0FBD8C';
@@ -48,7 +49,7 @@
   }
 </style>
 
-<button on:click style:background-color={getColor()}>
+<button on:click style:background-color={getColor()} style:display={hidden ? 'none' : 'block'}>
   <div class="dimmer"></div>
   <div class="text">{text}</div>
 </button>
