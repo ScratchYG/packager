@@ -1,13 +1,13 @@
 {
   "p4": {
     "description1": {
-      "string": "Packages TurboWarp projects with ScratchYG extension into zip archives for Yandex.Games."
+      "string": "Simplified TurboWarp project-packager, that packages projects to zip archives for Yandex.Games."
     },
     "description2": {
-      "string": ""
+      "string": "⚠ To access Yandex.Games SDK in TurboWarp, use extensions, for example {embedding}"
     },
     "description2-embedding": {
-      "string": ""
+      "string": "ScratchYG"
     },
     "description3": {
       "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."

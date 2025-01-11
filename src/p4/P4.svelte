@@ -149,7 +149,7 @@
           values={{
             embedding: {
               text: $_('p4.description2-embedding'),
-              href: 'https://docs.turbowarp.org/embedding'
+              href: 'https://github.com/ScratchYG/sdk'
             }
           }}
         />
