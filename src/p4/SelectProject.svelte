@@ -17,7 +17,7 @@
 
   const defaultProjectId = '60917032';
 
-  const type = writablePersistentStore('SelectProject.type', 'id');
+  const type = writablePersistentStore('SelectProject.type', 'file');
   const projectId = writablePersistentStore('SelectProject.id', defaultProjectId);
   const projectUrl = writablePersistentStore('SelectProject.url', '');
 
@@ -229,10 +229,9 @@
   <Section accent="#4f1bbe">
     <h2>{$_('select.select')}</h2>
     <p>{$_('select.selectHelp')}</p>
-    <input hidden={$type !== "file"} on:change={handleFileInputChange} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
 
-    <div style="display: none" class="options">
-      <div class="option">
+    <div class="options">
+      <div class="option" style="display: none">
         <label>
           <input type="radio" name="project-type" bind:group={$type} value="id">
           {$_('select.id')}
@@ -243,12 +242,13 @@
       </div>
       <!-- TurboWarp Desktop looks for the file-input-option class for special handling, so be careful when modifying this. -->
       <div class="option file-input-option">
-        <label>
+        <label style="display:none">
           <input type="radio" name="project-type" bind:group={$type} value="file">
           {$_('select.file')}
         </label>
+        <input hidden={$type !== "file"} on:change={handleFileInputChange} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
       </div>
-      <div class="option">
+      <div class="option" style="display: none">
         <label>
           <input type="radio" name="project-type" bind:group={$type} value="url">
           {$_('select.url')}
@@ -260,13 +260,13 @@
     </div>
 
     {#if $type === "id"}
-      <p>
+      <p style="display:none">
         {$_('select.unsharedProjects')}
       </p>
-      <p>
+      <p style="display:none">
         {$_('select.unsharedProjectsWorkaround')}
       </p>
-      <p>
+      <p style="display:none">
         <ComplexMessage
           message={$_('select.unsharedProjectsMore')}
           values={{
