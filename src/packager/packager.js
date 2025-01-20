@@ -1666,7 +1666,7 @@ cd "$(dirname "$0")"
           if(file === 'project.json'){
             zip.files[file].async("text").then((data) => {
               console.log(data);
-              dataJson = JSON.parse(data);
+              let dataJson = JSON.parse(data);
               console.log(dataJson);
               for (let i = 0; i < dataJson["targets"].length; i++) {
                 let target = dataJson["targets"][i];
