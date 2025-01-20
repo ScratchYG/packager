@@ -1664,10 +1664,26 @@ cd "$(dirname "$0")"
         zip = await (await getJSZip()).loadAsync(this.project.arrayBuffer);
         for (const file of Object.keys(zip.files)) {
           if(file === 'project.json'){
-            zip.files[file].async().then((data) => {
+            zip.files[file].async("text").then((data) => {
               console.log(data);
               dataJson = JSON.parse(data);
               console.log(dataJson);
+              for (let i = 0; i < dataJson["targets"].length; i++) {
+                let target = dataJson["targets"][i];
+                if(target["blocks"] != {}){
+                  let blockIDs = Object.keys(target["blocks"]);
+                  blockIDs.forEach((bid) => {
+                    let bck = target["blocks"][bid];
+                    if(bck["opcode"] === "scratchyg_setdebug" && bck["next"] != null && bck["parent"] != null){
+                      dataJson["targets"][i]["blocks"][bck["parent"]]["next"] = bck["next"];
+                      dataJson["targets"][i]["blocks"][bck["next"]]["parent"] = bck["parent"];
+                      dataJson["targets"][i]["blocks"][bid]["next"] = null;
+                      dataJson["targets"][i]["blocks"][bid]["parent"] = null;
+                      console.log("removed debug");
+                    }
+                  });
+                }
+              }
             });
           }
           zip.files[`assets/${file}`] = zip.files[file];
