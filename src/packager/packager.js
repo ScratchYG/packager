@@ -1684,7 +1684,7 @@ cd "$(dirname "$0")"
                 });
               }
             }
-            zip.file(JSON.stringify(dataJson), 'project.json');
+            zip.file('project.json', JSON.stringify(dataJson));
           }
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
