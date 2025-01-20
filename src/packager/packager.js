@@ -1663,6 +1663,13 @@ cd "$(dirname "$0")"
       if (this.project.type === 'sb3' && this.options.target !== 'zip-one-asset') {
         zip = await (await getJSZip()).loadAsync(this.project.arrayBuffer);
         for (const file of Object.keys(zip.files)) {
+          if(file === 'project.json'){
+            zip.files[file].async().then((data) => {
+              console.log(data);
+              dataJson = JSON.parse(data);
+              console.log(dataJson);
+            });
+          }
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
         }
