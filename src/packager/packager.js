@@ -1,16 +1,16 @@
-import {EventTarget, CustomEvent} from '../common/event-target';
+import { EventTarget, CustomEvent } from '../common/event-target';
 import sha256 from './sha256';
 import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
 import request from '../common/request';
 import pngToAppleICNS from './icns';
-import {buildId, verifyBuildId} from './build-id';
-import {encode} from './base85';
-import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
-import {OutdatedPackagerError} from '../common/errors';
-import {darken} from './colors';
-import {Adapter} from './adapter';
+import { buildId, verifyBuildId } from './build-id';
+import { encode } from './base85';
+import { parsePlist, generatePlist } from './plist';
+import { APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR } from './brand';
+import { OutdatedPackagerError } from '../common/errors';
+import { darken } from './colors';
+import { Adapter } from './adapter';
 import encodeBigString from './encode-big-string';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -97,7 +97,7 @@ ${SCRATCH_LICENSE.license}
 const generateChromiumLicenseHTML = (licenses) => {
   const style = `<style>body { font-family: sans-serif; }</style>`;
   const pretext = `<h2>The following entries were added by the ${APP_NAME}</h2>`;
-  const convertedLicenses = licenses.map((({title, license, homepage}, index) => `
+  const convertedLicenses = licenses.map((({ title, license, homepage }, index) => `
 <div class="product">
 <span class="title">${escapeXML(title)}</span>
 <span class="homepage"><a href="${escapeXML(homepage)}">homepage</a></span>
@@ -174,7 +174,7 @@ const validatePackageName = (packageName) => {
 };
 
 class Packager extends EventTarget {
-  constructor () {
+  constructor() {
     super();
     this.project = null;
     this.options = Packager.DEFAULT_OPTIONS();
@@ -182,20 +182,20 @@ class Packager extends EventTarget {
     this.used = false;
   }
 
-  abort () {
+  abort() {
     if (!this.aborted) {
       this.aborted = true;
       this.dispatchEvent(new Event('abort'));
     }
   }
 
-  ensureNotAborted () {
+  ensureNotAborted() {
     if (this.aborted) {
       throw new Error('Aborted');
     }
   }
 
-  async fetchLargeAsset (name, type) {
+  async fetchLargeAsset(name, type) {
     this.ensureNotAborted();
     const asset = largeAssets[name];
     if (!asset) {
@@ -258,7 +258,7 @@ class Packager extends EventTarget {
     return result;
   }
 
-  getAddonOptions () {
+  getAddonOptions() {
     return {
       ...this.options.chunks,
       specialCloudBehaviors: this.options.cloudVariables.specialCloudBehaviors,
@@ -267,7 +267,7 @@ class Packager extends EventTarget {
     };
   }
 
-  async loadResources () {
+  async loadResources() {
     const texts = [COPYRIGHT_HEADER];
     if (this.project.analysis.usesMusic) {
       texts.push(await this.fetchLargeAsset('scaffolding', 'text'));
@@ -277,10 +277,10 @@ class Packager extends EventTarget {
     if (Object.values(this.getAddonOptions()).some((i) => i)) {
       texts.push(await this.fetchLargeAsset('addons', 'text'));
     }
-    this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
+    this.script = texts.join('\n').replace(/<\/script>/g, "</scri'+'pt>");
   }
 
-  computeWindowSize () {
+  computeWindowSize() {
     let width = this.options.stageWidth;
     let height = this.options.stageHeight;
     if (
@@ -290,10 +290,10 @@ class Packager extends EventTarget {
     ) {
       height += 48;
     }
-    return {width, height};
+    return { width, height };
   }
 
-  getPlistPropertiesForPrimaryExecutable () {
+  getPlistPropertiesForPrimaryExecutable() {
     return {
       [CFBundleIdentifier]: `${bundleIdentifierPrefix}${this.options.app.packageName}`,
 
@@ -313,14 +313,14 @@ class Packager extends EventTarget {
     };
   }
 
-  async updatePlist (zip, name, newProperties) {
+  async updatePlist(zip, name, newProperties) {
     const contents = await zip.file(name).async('string');
     const plist = parsePlist(contents);
     Object.assign(plist, newProperties);
     zip.file(name, generatePlist(plist));
   }
 
-  async addNwJS (projectZip) {
+  async addNwJS(projectZip) {
     const packageName = this.options.app.packageName;
     validatePackageName(packageName);
 
@@ -430,7 +430,7 @@ cd "$(dirname "$0")"
     return zip;
   }
 
-  async addElectron (projectZip) {
+  async addElectron(projectZip) {
     const packageName = this.options.app.packageName;
     validatePackageName(packageName);
 
@@ -897,7 +897,7 @@ cd "$(dirname "$0")"
     return zip;
   }
 
-  async addWebViewMac (projectZip) {
+  async addWebViewMac(projectZip) {
     validatePackageName(this.options.app.packageName);
 
     const buffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
@@ -958,7 +958,7 @@ cd "$(dirname "$0")"
     return zip;
   }
 
-  makeWebSocketProvider () {
+  makeWebSocketProvider() {
     // If using the default turbowarp.org server, we'll add a fallback for the turbowarp.xyz alias.
     // This helps work around web filters as turbowarp.org can be blocked for games and turbowarp.xyz uses
     // a problematic TLD. These are the same server and same variables, just different domain.
@@ -969,11 +969,11 @@ cd "$(dirname "$0")"
     return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(cloudHost)}, ${JSON.stringify(this.options.projectId)})`;
   }
 
-  makeLocalStorageProvider () {
+  makeLocalStorageProvider() {
     return `new Scaffolding.Cloud.LocalStorageProvider(${JSON.stringify(`cloudvariables:${this.options.projectId}`)})`;
   }
 
-  makeCustomProvider () {
+  makeCustomProvider() {
     const variables = this.options.cloudVariables.custom;
     let result = '{const providers = {};\n';
     for (const provider of new Set(Object.values(variables))) {
@@ -992,11 +992,11 @@ cd "$(dirname "$0")"
     return result;
   }
 
-  generateFilename (extension) {
+  generateFilename(extension) {
     return `${this.options.app.windowTitle}.${extension}`;
   }
 
-  async generateGetProjectData () {
+  async generateGetProjectData() {
     const result = [];
     let getProjectDataFunction = '';
     let isZip = false;
@@ -1146,7 +1146,7 @@ cd "$(dirname "$0")"
     return result;
   }
 
-  async generateFavicon () {
+  async generateFavicon() {
     if (this.options.app.icon === null) {
       return '';
     }
@@ -1154,7 +1154,7 @@ cd "$(dirname "$0")"
     return `<link rel="icon" href="${data}">`;
   }
 
-  async generateCursor () {
+  async generateCursor() {
     if (this.options.cursor.type !== 'custom') {
       return this.options.cursor.type;
     }
@@ -1166,7 +1166,7 @@ cd "$(dirname "$0")"
     return `url(${data}) ${this.options.cursor.center.x} ${this.options.cursor.center.y}, auto`;
   }
 
-  async generateExtensionURLs () {
+  async generateExtensionURLs() {
     const dispatchProgress = (progress) => this.dispatchEvent(new CustomEvent('fetch-extensions', {
       detail: {
         progress
@@ -1214,7 +1214,7 @@ cd "$(dirname "$0")"
     return finalURLs;
   }
 
-  async package () {
+  async package() {
     if (!Adapter) {
       throw new Error('Missing adapter');
     }
@@ -1455,13 +1455,13 @@ cd "$(dirname "$0")"
 
       try {
         ${this.options.cloudVariables.mode === 'ws' ?
-          `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
-          this.options.cloudVariables.mode === 'local' ?
-          `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
-          this.options.cloudVariables.mode === 'custom' ?
-          this.makeCustomProvider() :
-          ''
-        };
+            `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
+            this.options.cloudVariables.mode === 'local' ?
+              `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
+              this.options.cloudVariables.mode === 'custom' ?
+                this.makeCustomProvider() :
+                ''
+          };
       } catch (error) {
         console.error(error);
       }
@@ -1663,28 +1663,28 @@ cd "$(dirname "$0")"
       if (this.project.type === 'sb3' && this.options.target !== 'zip-one-asset') {
         zip = await (await getJSZip()).loadAsync(this.project.arrayBuffer);
         for (const file of Object.keys(zip.files)) {
-          if(file === 'project.json'){
-            zip.files[file].async("text").then((data) => {
-              console.log(data);
-              let dataJson = JSON.parse(data);
-              console.log(dataJson);
-              for (let i = 0; i < dataJson["targets"].length; i++) {
-                let target = dataJson["targets"][i];
-                if(target["blocks"] != {}){
-                  let blockIDs = Object.keys(target["blocks"]);
-                  blockIDs.forEach((bid) => {
-                    let bck = target["blocks"][bid];
-                    if(bck["opcode"] === "scratchyg_setdebug" && bck["next"] != null && bck["parent"] != null){
-                      dataJson["targets"][i]["blocks"][bck["parent"]]["next"] = bck["next"];
-                      dataJson["targets"][i]["blocks"][bck["next"]]["parent"] = bck["parent"];
-                      dataJson["targets"][i]["blocks"][bid]["next"] = null;
-                      dataJson["targets"][i]["blocks"][bid]["parent"] = null;
-                      console.log("removed debug");
-                    }
-                  });
-                }
+          if (file === 'project.json') {
+            let d = await zip.files[file].async("text")
+            console.log(d);
+            let dataJson = JSON.parse(d);
+            console.log(dataJson);
+            for (let i = 0; i < dataJson["targets"].length; i++) {
+              let target = dataJson["targets"][i];
+              if (target["blocks"] != {}) {
+                let blockIDs = Object.keys(target["blocks"]);
+                blockIDs.forEach((bid) => {
+                  let bck = target["blocks"][bid];
+                  if (bck["opcode"] === "scratchyg_setdebug" && bck["next"] != null && bck["parent"] != null) {
+                    dataJson["targets"][i]["blocks"][bck["parent"]]["next"] = bck["next"];
+                    dataJson["targets"][i]["blocks"][bck["next"]]["parent"] = bck["parent"];
+                    dataJson["targets"][i]["blocks"][bid]["next"] = null;
+                    dataJson["targets"][i]["blocks"][bid]["parent"] = null;
+                    console.log("removed debug");
+                  }
+                });
               }
-            });
+            }
+            zip.file(JSON.stringify(dataJson), 'project.json');
           }
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
